@@ -7,9 +7,9 @@ package com.github.foo;
  * @param <T> of object
  */
 public interface Tree<T> {
-	public void insert(T t);
+	public void addChild(T  child);
 	
-	public void delete(T t);
+	public void removeChild(T child);
 	
 	public OrderedCollection<T> traverse(Order order);
 	
