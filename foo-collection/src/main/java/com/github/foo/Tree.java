@@ -7,11 +7,29 @@ package com.github.foo;
  * @param <T> of object
  */
 public interface Tree<T> {
-	public void addChild(T  child);
+	/**
+	 * Adding a child to tree
+	 * @param child
+	 */
+	public void insert(T  child);
 	
-	public void removeChild(T child);
+	/**
+	 * removing a child from tree
+	 * It depends on the {@link Object#equals(Object)} implementation
+	 * @param child
+	 */
+	public void remove(T child);
 	
-	public OrderedCollection<T> traverse(Order order);
+	/**
+	 * Traverse the collection and returned the ordered array
+	 * @param order to traverse
+	 * @return
+	 */
+	public T[] traverse(Order order);
 	
+	/**
+	 * returns the height of the tree
+	 * @return height of tree
+	 */
 	public int height();
 }
