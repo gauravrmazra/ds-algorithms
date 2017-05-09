@@ -13,10 +13,7 @@ import java.util.Objects;
  */
 public class BinarySearchTree<T> implements Tree<T> {
 
-	private BinarySearchTree<T> root;
-	private BinarySearchTree<T> leftNode;
-	private BinarySearchTree<T> rightNode;
-	private T data;
+	private BTNode<T> root;
 
 	private final Comparator<? super T> comparator;
 
@@ -33,19 +30,12 @@ public class BinarySearchTree<T> implements Tree<T> {
 	 * {@code ClassCastException}.
 	 */
 	public BinarySearchTree(T value) {
-		leftNode = null;
-		rightNode = null;
-		data = value;
-		comparator = null;
-
+		this(value, null);
 	}
 
 	public BinarySearchTree(T value, Comparator<? super T> comparator) {
-		this.leftNode = null;
-		this.rightNode = null;
-		this.data = value;
+		root = new BTNode<>(value);
 		this.comparator = comparator;
-
 	}
 
 	/*
@@ -55,45 +45,23 @@ public class BinarySearchTree<T> implements Tree<T> {
 	 */
 	@Override
 	public void insert(T t) {
-
 		Objects.requireNonNull(t);
-		
-		if(Objects.isNull(root) ||( Objects.isNull(root.leftNode) && Objects.isNull(root.rightNode))){
-			root =this;
+		insertNode(root, t);
+	}
+
+	private BTNode<T> insertNode(BTNode<T> root, T t) {
+		if (root == null) {
+			root = new BTNode<>(t);
+			return root;
 		}
-		BinarySearchTree<T> tempNode = root;
-		insertNode(tempNode, t);
-		
+		if (compare(t, root.getValue()) > 0) {
+			root.right(insertNode(root.right(), t));
+		} else {
+			root.left(insertNode(root.left(), t));
+		}
+		return root;
 	}
-	
-	
-	
-	
-	private BinarySearchTree<T> insertNode(BinarySearchTree<T> root, T t){
 
-		 	if (root == null) {
-		        root = new BinarySearchTree<>(t);
-		        return root;
-		    }
-
-			if(compare(t, root.data) > 0){
-				root.rightNode = insertNode(root.rightNode, t);
-			}else{
-				root.leftNode = insertNode(root.leftNode, t);
-			}
-			 return root;
-	}
-	
-//	public  void display(BinarySearchTree<T> root){
-//		  if (root == null)
-//	          return;
-//		display(root.leftNode);
-//		System.out.print(root.data+", ");
-//		display(root.rightNode);
-//		
-//}
-
-	
 	/**
 	 * Compares two values based on comparator
 	 * 
@@ -107,35 +75,52 @@ public class BinarySearchTree<T> implements Tree<T> {
 				: comparator.compare((T) value1, (T) value2);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.github.foo.Tree#remove(java.lang.Object)
 	 */
 	@Override
 	public void remove(T child) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	/* (non-Javadoc)
+	
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.github.foo.Tree#height()
 	 */
 	@Override
 	public int height() {
-		// TODO Auto-generated method stub
-		return 0;
+		return height(root);
 	}
 
+	private int height(BTNode<T> node){
+		if(Objects.isNull(node)){
+			return 0;
+		}else{
+			int leftDepth = height(node.left());
+			int rightDepth = height(node.right());
+			return Math.max(leftDepth, rightDepth)+1;
+		}
+	}
+	/* (non-Javadoc)
+	 * @see com.github.foo.Tree#search(java.lang.Object)
+	 */
 	@Override
 	public boolean search(T data) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.github.foo.Tree#getRoot()
+	 */
 	@Override
-	public Node<T> getRoot() {
-		// TODO Auto-generated method stub
-		return null;
+	public BTNode<T> getRoot() {
+		return root;
 	}
-
 
 }
