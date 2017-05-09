@@ -42,4 +42,10 @@ public class BinarySearchTreeTest {
 		
 		Assert.assertArrayEquals(new Integer[] {10, 15, 20, 50, 60, 65, 70}, Trees.traverseBinaryTree(getBinaryTree().getRoot(), Order.IN));
 	}
+	
+	@Test
+	public void BinarySearchTreeLevelOrderTraverse() {
+		
+		Assert.assertArrayEquals(new Integer[] {50,10,60,20,70,15,65}, Trees.traverseBinaryTree(getBinaryTree().getRoot(), Order.LEVEL));
+	}
 }

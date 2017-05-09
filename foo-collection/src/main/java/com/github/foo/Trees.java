@@ -4,8 +4,10 @@
 package com.github.foo;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Queue;
 
 /**
  * Class consists static methods that operates on 
@@ -31,10 +33,33 @@ public class Trees {
 		case POST:
 			postOrder(root, elements);
 			break;
+		case LEVEL:
+			levelOrder(root, elements);
+			break;	
 		default:
 			throw new IllegalArgumentException("Traversal not supported");
 		}
 		return (T[]) elements.toArray();
+	}
+
+	/**
+	 * @param <T>
+	 * @param root
+	 * @param elements
+	 */
+	private static <T> void levelOrder(BTNode<T> root, List<T> elements) {
+		Queue<BTNode<T>> queue = new LinkedList<>();
+		queue.add(root);
+		while(!queue.isEmpty()){
+			BTNode<T> node = queue.poll();
+			elements.add(node.getValue());
+			if(Objects.nonNull(node.left())){
+				queue.add(node.left());
+			}
+			if(Objects.nonNull(node.right())){
+				queue.add(node.right());
+			}
+		}
 	}
 
 	private static <T> void postOrder(BTNode<T> node, List<T> elements) {
