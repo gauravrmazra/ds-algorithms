@@ -117,21 +117,24 @@ public class BinarySearchTree<T> implements Tree<T> {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.github.foo.Tree#traverse(com.github.foo.Order)
-	 */
-	@Override
-	public T[] traverse(Order order) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/* (non-Javadoc)
 	 * @see com.github.foo.Tree#height()
 	 */
 	@Override
 	public int height() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public boolean search(T data) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Node<T> getRoot() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

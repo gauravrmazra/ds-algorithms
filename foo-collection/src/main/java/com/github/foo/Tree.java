@@ -9,27 +9,34 @@ package com.github.foo;
 public interface Tree<T> {
 	/**
 	 * Adding a child to tree
-	 * @param child
+	 * @param data
 	 */
-	public void insert(T  child);
+	public void insert(T  data);
 	
 	/**
 	 * removing a child from tree
 	 * It depends on the {@link Object#equals(Object)} implementation
-	 * @param child
+	 * @param data
 	 */
-	public void remove(T child);
+	public void remove(T data);
 	
 	/**
-	 * Traverse the collection and returned the ordered array
-	 * @param order to traverse
-	 * @return
+	 * Searches if the data exists in tree or not
+	 * It depends on the {@link Object#equals(Object)} method for checking equality
+	 * @param data
+	 * @return true if data exists otherwise false
 	 */
-	public T[] traverse(Order order);
+	public boolean search(T data);
 	
 	/**
 	 * returns the height of the tree
 	 * @return height of tree
 	 */
 	public int height();
+	
+	/**
+	 * returns the root node of the tree
+	 * @return Node of type T
+	 */
+	public Node<T> getRoot();
 }
