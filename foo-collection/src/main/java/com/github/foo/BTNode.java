@@ -56,12 +56,4 @@ public class BTNode<T> implements Node<T> {
 	void left(BTNode<T> node) {
 		this.left = node;
 	}
-
-	@Override
-	public int height() {
-		if (left != null) {
-			return left.height() + 1;
-		}
-		return 1;
-	}
 }

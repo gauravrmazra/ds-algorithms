@@ -16,15 +16,15 @@ public class BinaryTree<T> implements Tree<T> {
 	/**
 	 * Create a Binary tree and self as root node
 	 * 
-	 * @param value
+	 * @param data
 	 */
-	public BinaryTree(T value) {
-		this.root = new BTNode<>(value);
+	public BinaryTree(T data) {
+		this.root = new BTNode<>(data);
 	}
 
 	@Override
-	public void insert(T child) {
-		root = insert(root, child);
+	public void insert(T data) {
+		root = insert(root, data);
 	}
 
 	private BTNode<T> insert(BTNode<T> node, T value) {
@@ -36,12 +36,12 @@ public class BinaryTree<T> implements Tree<T> {
 			} else if (Objects.isNull(node.right())) {
 				node.right(insert(node.right(), value));
 			} else {
-				int leftHeight = node.left().height();
-				int rightHeight = node.right().height();
+				int leftHeight = heightOf(node.left(), 1);
+				int rightHeight = heightOf(node.right(), 1);
 				if (leftHeight == rightHeight) {
 					BTNode<T> temp = node.right();
-					int tempLeftHeight = Objects.isNull(temp.left()) ? 0 : temp.left().height();
-					int tempRightHeight = Objects.isNull(temp.right()) ? 0 : temp.right().height();
+					int tempLeftHeight = Objects.isNull(temp.left()) ? 0 : heightOf(temp.left(), 1);
+					int tempRightHeight = Objects.isNull(temp.right()) ? 0 : heightOf(temp.right(), 1);
 					if (tempLeftHeight == tempRightHeight) {
 						node.left(insert(node.left(), value));
 					} else {
@@ -49,8 +49,8 @@ public class BinaryTree<T> implements Tree<T> {
 					}
 				} else if (leftHeight > rightHeight) {
 					BTNode<T> temp = node.left();
-					int tempLeftHeight = Objects.isNull(temp.left()) ? 0 : temp.left().height();
-					int tempRightHeight = Objects.isNull(temp.right()) ? 0 : temp.right().height();
+					int tempLeftHeight = Objects.isNull(temp.left()) ? 0 : heightOf(temp.left(), 1);
+					int tempRightHeight = Objects.isNull(temp.right()) ? 0 : heightOf(temp.right(), 1);
 					if (tempLeftHeight == tempRightHeight) {
 						node.right(insert(node.right(), value));
 					} else {
@@ -65,13 +65,30 @@ public class BinaryTree<T> implements Tree<T> {
 	}
 
 	@Override
-	public void remove(T child) {
-		// TODO Need to implement it
+	public void remove(T data) {
+		Objects.requireNonNull(data);
+		remove(root, data);
+	}
+
+	private void remove(BTNode<T> node, T data) {
+		if (node.getValue().equals(data)) {
+			BTNode<T> leftNode = node.left();
+			if (Objects.isNull(leftNode)) {
+				// TODO need to implement
+			}
+		}
 	}
 
 	@Override
 	public int height() {
-		return root.height();
+		return heightOf(root, 1);
+	}
+
+	public static <T> int heightOf(BTNode<T> node, int acc) {
+		if (Objects.nonNull(node) && Objects.nonNull(node.left())) {
+			return heightOf(node.left(), acc + 1);
+		}
+		return acc;
 	}
 
 	@Override
@@ -83,27 +100,27 @@ public class BinaryTree<T> implements Tree<T> {
 	public boolean search(T data) {
 		if (Objects.isNull(data))
 			return false;
-		
+
 		Queue<BTNode<T>> queue = new LinkedList<>();
 		queue.offer(root);
-		
+
 		while (!queue.isEmpty()) {
 			BTNode<T> node = queue.poll();
 			if (node.getValue().equals(data)) {
 				return true;
 			}
-			
+
 			if (Objects.nonNull(node.left())) {
 				queue.offer(node.left());
 			}
-			
+
 			if (Objects.nonNull(node.right())) {
 				queue.offer(node.right());
 			}
 		}
 		return false;
 	}
-	
+
 	@Override
 	public BTNode<T> getRoot() {
 		return root;

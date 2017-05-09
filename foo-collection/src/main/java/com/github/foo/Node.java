@@ -13,11 +13,4 @@ public interface Node<T> {
 	 * @return
 	 */
 	T getValue();
-	
-	/**
-	 * Height of the node
-	 * @return
-	 */
-	int height();
-
 }
