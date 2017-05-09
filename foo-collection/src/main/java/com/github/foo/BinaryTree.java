@@ -1,6 +1,8 @@
 package com.github.foo;
 
+import java.util.LinkedList;
 import java.util.Objects;
+import java.util.Queue;
 
 /**
  * 
@@ -79,10 +81,29 @@ public class BinaryTree<T> implements Tree<T> {
 
 	@Override
 	public boolean search(T data) {
-		// TODO Need to implement it
+		if (Objects.isNull(data))
+			return false;
+		
+		Queue<BTNode<T>> queue = new LinkedList<>();
+		queue.offer(root);
+		
+		while (!queue.isEmpty()) {
+			BTNode<T> node = queue.poll();
+			if (node.getValue().equals(data)) {
+				return true;
+			}
+			
+			if (Objects.nonNull(node.left())) {
+				queue.offer(node.left());
+			}
+			
+			if (Objects.nonNull(node.right())) {
+				queue.offer(node.right());
+			}
+		}
 		return false;
 	}
-
+	
 	@Override
 	public BTNode<T> getRoot() {
 		return root;
