@@ -4,6 +4,8 @@
 package com.github.foo;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -90,5 +92,45 @@ public class Trees {
 
 		if (node.right() != null)
 			inOrder(node.right(), elements);
+	}
+	
+	/**
+	 * Creates a BinarySearchTree of Collection
+	 * It will throw IllegalArgumentException if elements is null or empty
+	 * and NullPointerException if any element from collection is null
+	 * @param elements to use for Creating BST
+	 * @return BinarySearchTree of type T
+	 */
+	public static <T> BinarySearchTree<T> binarySearchTreeOf(Collection<T> elements) {
+		return (BinarySearchTree<T>) treeOf(elements, BinarySearchTree<T>::new);
+	}
+	
+	
+	/**
+	 * Create a BinaryTree of the Collection
+	 * It will throw IllegalArgumentException if elements is null or empty
+	 * and NullPointerException if any element from collection is null
+	 * @param elements to use for Creating BST
+	 * @return BinaryTree of type T
+	 */
+	public static <T> BinaryTree<T> binaryTreeOf(Collection<T> elements) {
+		return (BinaryTree<T>)treeOf(elements, BinaryTree<T>::new);
+	}
+	
+	@FunctionalInterface
+	private interface TreeCreator<T> {
+		public Tree<T> createTree(T t);
+	}
+
+	private static <T> Tree<T>  treeOf(Collection<T> elements, TreeCreator<T> treeCreator) {
+		if (Objects.isNull(elements) || elements.isEmpty()) {
+			throw new IllegalArgumentException("We need atleast one element in collection to build BST!!!");
+		}
+		Iterator<T> eItr = elements.iterator();
+		Tree<T> tree = treeCreator.createTree(Objects.requireNonNull(eItr.next()));
+		while (eItr.hasNext()) {
+			tree.insert(Objects.requireNonNull(eItr.next()));
+		}
+		return tree;
 	}
 }
