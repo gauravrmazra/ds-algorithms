@@ -11,7 +11,7 @@ import org.junit.Test;
 public class BinarySearchTreeTest {
 	
 	
-	private BinarySearchTree getBinaryTree(){
+	private BinarySearchTree<Integer> getBinaryTree(){
 		
 		BinarySearchTree<Integer> btree = new BinarySearchTree<>(50);
 		btree.insert(10);
@@ -38,13 +38,13 @@ public class BinarySearchTreeTest {
 	}
 	
 	@Test
-	public void BinarySearchTreeInorderTraverse() {
+	public void bstInorderTraverse() {
 		
 		Assert.assertArrayEquals(new Integer[] {10, 15, 20, 50, 60, 65, 70}, Trees.traverseBinaryTree(getBinaryTree().getRoot(), Order.IN));
 	}
 	
 	@Test
-	public void BinarySearchTreeLevelOrderTraverse() {
+	public void bstLevelOrderTraverse() {
 		
 		Assert.assertArrayEquals(new Integer[] {50,10,60,20,70,15,65}, Trees.traverseBinaryTree(getBinaryTree().getRoot(), Order.LEVEL));
 	}
