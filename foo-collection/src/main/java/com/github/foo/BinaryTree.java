@@ -84,7 +84,7 @@ public class BinaryTree<T> implements Tree<T> {
 		return heightOf(root, 1);
 	}
 
-	public static <T> int heightOf(BTNode<T> node, int acc) {
+	private static <T> int heightOf(BTNode<T> node, int acc) {
 		if (Objects.nonNull(node) && Objects.nonNull(node.left())) {
 			return heightOf(node.left(), acc + 1);
 		}
