@@ -82,10 +82,41 @@ public class BinarySearchTree<T> implements Tree<T> {
 	 */
 	@Override
 	public void remove(T child) {
-		// TODO Auto-generated method stub
-
+		root = removeNode(root, child);
 	}
 
+	private BTNode<T> removeNode(BTNode<T> node, T child){
+		if(Objects.isNull(node)){
+			return  node;
+		}
+		int cValue = compare(child, node.getValue());
+		if( cValue >0){
+			node.right(removeNode(node.right(), child));
+		}else if(cValue <0){
+			node.left(removeNode(node.left(), child));
+		}else{
+			if(Objects.isNull(node.left()) && Objects.isNull(node.right())){
+				node =null;
+			}else if(Objects.isNull(node.left())){
+				return node.right();
+			}else if(Objects.isNull(node.right())){
+				return node.left();
+			}else{
+				
+				BTNode<T> temp = minValue(node.right());
+				node.setValue(temp.getValue());
+				node.right(removeNode(node.right(), temp.getValue()));
+				
+			}
+		}
+		return node;
+	}
+	private BTNode<T> minValue(BTNode<T> node){
+		while(Objects.nonNull(node.left())){
+			node = node.left();
+		}
+		return node;
+	}
 	
 	/*
 	 * (non-Javadoc)
@@ -111,9 +142,21 @@ public class BinarySearchTree<T> implements Tree<T> {
 	 */
 	@Override
 	public boolean search(T data) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean found = false;
+		while(Objects.nonNull(root)){
+			if(root.getValue().equals(data)){
+				found =true;
+				break;
+			}
+			if(compare(data, root.getValue()) > 0){
+				root = root.right();
+			}else{
+				root = root.left();
+			}
+		}
+		return found;
 	}
+		
 
 	/* (non-Javadoc)
 	 * @see com.github.foo.Tree#getRoot()

@@ -33,6 +33,14 @@ public class BTNode<T> implements Node<T> {
 		return this.right;
 	}
 	
+	
+	/**
+	 * @param value the value to set
+	 */
+	public void setValue(T value) {
+		this.value = value;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
