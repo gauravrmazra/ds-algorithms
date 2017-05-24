@@ -48,4 +48,11 @@ public class BinarySearchTreeTest {
 		
 		Assert.assertArrayEquals(new Integer[] {50,10,60,20,70,15,65}, Trees.traverseBinaryTree(getBinaryTree().getRoot(), Order.LEVEL));
 	}
+	
+	@Test
+	public void bstRemoveNode() {
+		BinarySearchTree<Integer> bTree= getBinaryTree();
+		bTree.remove(50);
+		Assert.assertArrayEquals(new Integer[] {10, 15, 20,60, 65, 70}, Trees.traverseBinaryTree(bTree.getRoot(), Order.IN));
+	}
 }
