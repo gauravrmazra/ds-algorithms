@@ -105,6 +105,20 @@ public class Trees {
 		return (BinarySearchTree<T>) treeOf(elements, BinarySearchTree<T>::new);
 	}
 	
+	@SuppressWarnings("unchecked")
+	public static <T> boolean isBinarySearchTree(BTNode<T> node){
+		T[] nodes = traverseBinaryTree(node, Order.IN);
+		T v1 = nodes[0];
+		for(int i=1;i< nodes.length;i++){
+			if(((Comparable<? super T>) v1).compareTo((T) nodes[i]) >0){
+				return false;
+			}else{
+				v1 = nodes[i];
+			}
+		}
+		return true;
+	}
+	
 	
 	/**
 	 * Create a BinaryTree of the Collection
@@ -133,4 +147,5 @@ public class Trees {
 		}
 		return tree;
 	}
+	
 }

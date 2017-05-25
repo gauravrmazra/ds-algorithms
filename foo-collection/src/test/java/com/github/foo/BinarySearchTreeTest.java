@@ -55,4 +55,9 @@ public class BinarySearchTreeTest {
 		bTree.remove(50);
 		Assert.assertArrayEquals(new Integer[] {10, 15, 20,60, 65, 70}, Trees.traverseBinaryTree(bTree.getRoot(), Order.IN));
 	}
+	
+	@Test
+	public void testIsBinarySearchTree() {
+		Assert.assertEquals("Not a binary search tree", true, Trees.isBinarySearchTree(getBinaryTree().getRoot()));
+	}
 }
