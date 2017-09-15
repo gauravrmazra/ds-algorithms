@@ -25,11 +25,11 @@ public class BTNode<T> implements Node<T> {
 		return this.value;
 	}
 	
-	BTNode<T> left() {
+	public BTNode<T> left() {
 		return this.left;
 	}
 	
-	BTNode<T> right() {
+	public BTNode<T> right() {
 		return this.right;
 	}
 	
